@@ -55,6 +55,22 @@ def sel_bot(usuario, pwd, tag, maxlikes):
         cookies.click()
     except:
         pass
+        try:
+            notif = driver.find_element_by_xpath("html/body/div[5]/div/div/div/div[3]/button[2]")
+            notif.click()
+        except:
+            pass
+
+    try:
+        notif = driver.find_element_by_xpath("html/body/div[5]/div/div/div/div[3]/button[2]")
+        notif.click()
+    except:
+        pass
+        try:
+            cookies = driver.find_element_by_xpath("/html/body/div[2]/div/div/div/div[2]/button[1]")
+            cookies.click()
+        except:
+            pass
 
     for t in tag:
         print("#######################################################  {}".format(t))
