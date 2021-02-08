@@ -26,7 +26,6 @@ def sel_bot(usuario, pwd, tag, maxlikes):
     pasw.send_keys(pwd)
     button.submit()
 
-    time.sleep(3)
     # buton_n = driver.find_element_by_class_name("mt3GC")
     #
     # actions = ActionChains(driver)
@@ -50,27 +49,19 @@ def sel_bot(usuario, pwd, tag, maxlikes):
     liked = 0
     skip = False
     already = False
-    try:
-        cookies = driver.find_element_by_xpath("/html/body/div[2]/div/div/div/div[2]/button[1]")
-        cookies.click()
-    except:
-        pass
-        try:
-            notif = driver.find_element_by_xpath("html/body/div[5]/div/div/div/div[3]/button[2]")
-            notif.click()
-        except:
-            pass
+    
+    time.sleep(5)
 
     try:
         notif = driver.find_element_by_xpath("html/body/div[5]/div/div/div/div[3]/button[2]")
         notif.click()
     except:
         pass
-        try:
-            cookies = driver.find_element_by_xpath("/html/body/div[2]/div/div/div/div[2]/button[1]")
-            cookies.click()
-        except:
-            pass
+    try:
+        cookies = driver.find_element_by_xpath("/html/body/div[2]/div/div/div/div[2]/button[1]")
+        cookies.click()
+    except:
+        pass
 
     for t in tag:
         print("#######################################################  {}".format(t))
@@ -92,7 +83,7 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                     time.sleep(1)
                     att = driver.find_elements_by_css_selector("svg")[7]
                     lk = att.get_attribute("aria-label")
-                    if lk == 'El audio está silenciado.':
+                    if lk in ['El audio está silenciado.', 'El vídeo no tiene audio.']:
                         att = driver.find_elements_by_css_selector("svg")[8]
                         lk = att.get_attribute("aria-label")
                     if lk in ("Like", "Me gusta"):
@@ -135,6 +126,7 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                     else:
                         liked += 1
                         if liked == 10:
+                            liked = 0
                             break
                 blike = driver.find_element_by_xpath("/html/body/div[4]/div[2]/div/article/div[3]/section[1]/span[1]/button")
                         
