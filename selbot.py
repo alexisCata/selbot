@@ -51,17 +51,18 @@ def sel_bot(usuario, pwd, tag, maxlikes):
     already = False
     
     time.sleep(5)
-
+    
     try:
-        notif = driver.find_element_by_xpath("html/body/div[5]/div/div/div/div[3]/button[2]")
+        notif = driver.find_element_by_xpath("/html/body/div[2]/div/div/div/div[2]/button[1]")
         notif.click()
     except:
         pass
-    try:
-        cookies = driver.find_element_by_xpath("/html/body/div[2]/div/div/div/div[2]/button[1]")
-        cookies.click()
-    except:
-        pass
+    # try:
+    #     cookies = driver.find_element_by_xpath("/html/body/div[2]/div/div/div/div[2]/button[1]")
+    #     cookies.click()
+    # except:
+    #     pass
+
 
     for t in tag:
         print("#######################################################  {}".format(t))
@@ -77,7 +78,7 @@ def sel_bot(usuario, pwd, tag, maxlikes):
         for ind in range(0, 250):
             try:
                 name = driver.find_element_by_xpath(
-                    '/html/body/div[4]/div[2]/div/article/div[3]/div[1]/ul/div/li/div/div/div[2]/h2/div/span/a')
+                    '/html/body/div[5]/div[2]/div/article/header/div[2]/div[1]/div[1]/span/a')
                 
                 if name.text != usuario:
                     time.sleep(1)
@@ -88,7 +89,7 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                         lk = att.get_attribute("aria-label")
                     if lk in ("Like", "Me gusta"):
                         liked = 0
-                        blike = driver.find_element_by_xpath("/html/body/div[4]/div[2]/div/article/div[3]/section[1]/span[1]/button")
+                        blike = driver.find_element_by_xpath("/html/body/div[5]/div[2]/div/article/div[3]/section[1]/span[1]/button")
                         
                         time.sleep(random.choice(range(4, 7)))
                         blike.click()
@@ -128,7 +129,7 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                         if liked == 10:
                             liked = 0
                             break
-                blike = driver.find_element_by_xpath("/html/body/div[4]/div[2]/div/article/div[3]/section[1]/span[1]/button")
+                blike = driver.find_element_by_xpath("/html/body/div[5]/div[2]/div/article/div[3]/section[1]/span[1]/button")
                         
                 next = driver.find_element_by_xpath("/html/body/div[5]/div[1]/div/div/a[2]")
                 next.click()
