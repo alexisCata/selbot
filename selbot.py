@@ -89,12 +89,12 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                         lk = att.get_attribute("aria-label")
                     if lk in ("Like", "Me gusta"):
                         liked = 0
+                        # att.click()
                         blike = driver.find_element_by_xpath("/html/body/div[5]/div[2]/div/article/div[3]/section[1]/span[1]/button")
-                        
                         time.sleep(random.choice(range(4, 7)))
                         blike.click()
                         likes += 1
-                        print("LIKES: {}".format(likes))
+                        print("LIKES: {}/{}".format(likes, maxlikes))
                         time.sleep(random.choice(range(4, 7)))
                         if BOOL_COMMENT:
                             comment = driver.find_element_by_xpath(
@@ -130,7 +130,6 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                             liked = 0
                             break
                 blike = driver.find_element_by_xpath("/html/body/div[5]/div[2]/div/article/div[3]/section[1]/span[1]/button")
-                        
                 next = driver.find_element_by_xpath("/html/body/div[5]/div[1]/div/div/a[2]")
                 next.click()
                 time.sleep(2)
