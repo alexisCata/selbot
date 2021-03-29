@@ -74,7 +74,7 @@ def sel_bot(usuario, pwd, tag, maxlikes):
 
         post = driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div')
         post.click()
-        
+
         for ind in range(0, 250):
             try:
                 name = driver.find_element_by_xpath(
@@ -82,11 +82,12 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                 
                 if name.text != usuario:
                     time.sleep(1)
-                    att = driver.find_elements_by_css_selector("svg")[7]
-                    lk = att.get_attribute("aria-label")
-                    if lk in ['El audio está silenciado.', 'El vídeo no tiene audio.']:
-                        att = driver.find_elements_by_css_selector("svg")[8]
-                        lk = att.get_attribute("aria-label")
+                    
+                    for i in range(6, 11):
+                        lk = driver.find_elements_by_css_selector("svg:not(:root)")[i].get_attribute("aria-label")
+                        if lk in ("Like", "Me gusta"):
+                            break
+                    
                     if lk in ("Like", "Me gusta"):
                         liked = 0
                         # att.click()
@@ -129,22 +130,13 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                         if liked == 10:
                             liked = 0
                             break
-                blike = driver.find_element_by_xpath("/html/body/div[5]/div[2]/div/article/div[3]/section[1]/span[1]/button")
                 next = driver.find_element_by_xpath("/html/body/div[5]/div[1]/div/div/a[2]")
                 next.click()
                 time.sleep(2)
             except BaseException as e:
-                try:
-                    close = driver.find_element_by_xpath("/html/body/div[5]/div[3]/button")
-                except:
-                    try:
-                        close = driver.find_element_by_xpath("/html/body/div[5]/div[3]/button")
-                    except:
-                        pass
-                try:
-                    close.click()
-                except:
-                    break
+                close = driver.find_element_by_xpath(
+                    "/html/body/div[5]/div/div/article/div[2]/div[1]/div/div[2]/button")
+                close.click()
                 time.sleep(2)
                 scroll = (ind / 9) * 2000
                 driver.execute_script("window.scrollTo(0, {})".format(scroll))
