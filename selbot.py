@@ -82,12 +82,20 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                 
                 if name.text != usuario:
                     time.sleep(1)
+                    try:
+                        elements = driver.find_elements_by_css_selector("[aria-label=Me gusta]")
+                    except:
+                        elements = driver.find_elements_by_css_selector("[aria-label=Like]")
+                    found = False
+
+                    for e in elements:
+                        if e.tag_name == "svg":
+                            lk = e.get_attribute("aria-label")
+                            found = True
                     
-                    for i in range(6, 11):
-                        lk = driver.find_elements_by_css_selector("svg:not(:root)")[i].get_attribute("aria-label")
-                        if lk in ("Like", "Me gusta"):
-                            break
-                    
+                    if not found:
+                        print("WHAT THE FUCK IS GOING ON...? SOMETHING WRONG")
+
                     if lk in ("Like", "Me gusta"):
                         liked = 0
                         # att.click()
@@ -249,6 +257,23 @@ if __name__ == "__main__":
 
     tags = [
         "tag1", "tag2", "tag3..."
+    ]
+
+    tags = [
+        "hardenduro", "endurospain", "jarvisbasics", "thisisenduro", "enduro", "enduropro", "endurofun",
+        "endurox", "enduroextremo", "enduroextreme", "endurocross",
+        "enduroday", "offroad", "endurolove", "endurorider", "motoenduro", "enduromoto",
+        "extremeenduro", "endurolife", "endurobike", "endurobikes", "endurohard", "enduroadventure",
+        "endurolifestyle", "endurobikes", "endurotraining", "enduroracing",
+        "endurotrails", "endurodelverano", "endurotrail", "endurotrails", "endurohard",
+        "2t", "2tiempos", "2stroke", "ktmenduro", "ktmexc", "ktm300exctpi", "ktm300tpi", "ktm300", "goprohero",
+        "motocross", "motocrosslife", "motocrosslove", "motocrossrider", "motocrossaction", "motocrossgirl",
+        "dirtbike", "dirtbikes", "dirtbikeporn", "dirtbikegirl", "dirtbikesarefun", "dirtbikesarecool",
+        "endureros", "enduroespaña", "endurospain", "endurotraining", "endurofim",
+        "motos", "dosruedas", "rutasenmoto", "moto", "spain", "moteros", "moteras", "instamoto",
+        "pasionporlasmotos", "moteras", "moterosespaña", "locosporlasmotos", "amorporlasmotos",
+        "soymotero",
+        "motoadictos", "motopasion",
     ]
 
     main(usr, pwd, tags)
