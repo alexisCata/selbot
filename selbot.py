@@ -52,11 +52,11 @@ def sel_bot(usuario, pwd, tag, maxlikes):
     
     time.sleep(5)
     
-    try:
-        notif = driver.find_element_by_xpath("/html/body/div[2]/div/div/div/div[2]/button[1]")
-        notif.click()
-    except:
-        pass
+    # try:
+    #     notif = driver.find_element_by_xpath("/html/body/div[2]/div/div/div/div[2]/button[1]")
+    #     notif.click()
+    # except:
+    #     pass
     # try:
     #     cookies = driver.find_element_by_xpath("/html/body/div[2]/div/div/div/div[2]/button[1]")
     #     cookies.click()
@@ -83,9 +83,9 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                 if name.text != usuario:
                     time.sleep(1)
                     try:
-                        elements = driver.find_elements_by_css_selector("[aria-label=Me gusta]")
+                        elements = driver.find_elements_by_css_selector('[aria-label="Me gusta"]')
                     except:
-                        elements = driver.find_elements_by_css_selector("[aria-label=Like]")
+                        elements = driver.find_elements_by_css_selector('[aria-label="Like"]')
                     found = False
 
                     for e in elements:

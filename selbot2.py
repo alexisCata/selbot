@@ -83,9 +83,9 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                 if name.text != usuario:
                     time.sleep(1)
                     try:
-                        elements = driver.find_elements_by_css_selector("[aria-label=Me gusta]")
+                        elements = driver.find_elements_by_css_selector('[aria-label="Me gusta"]')
                     except:
-                        elements = driver.find_elements_by_css_selector("[aria-label=Like]")
+                        elements = driver.find_elements_by_css_selector('[aria-label="Like"]')
                     found = False
 
                     for e in elements:
