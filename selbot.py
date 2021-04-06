@@ -215,8 +215,9 @@ def main(usuario, pwd, tags):
     else:
         ran = range(690, 790)
 
+    filename = "IG"
+
     while True:
-        filename = "IG"
         file = os.getcwd() + "\\" + filename
 
         with open(file, "+w") as f:
@@ -236,7 +237,6 @@ def main(usuario, pwd, tags):
 
         last_tag, likes = sel_bot(usuario, pwd, tag, maxlikes)
 
-        filename = "IG"
         file = os.getcwd() + "\\" + filename
 
         with open(file, "+w") as f:

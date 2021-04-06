@@ -215,8 +215,10 @@ def main(usuario, pwd, tags):
     else:
         ran = range(690, 790)
 
+    filename = "IG2"
+
     while True:
-        filename = "IG"
+
         file = os.getcwd() + "\\" + filename
 
         with open(file, "+w") as f:
@@ -236,12 +238,10 @@ def main(usuario, pwd, tags):
 
         last_tag, likes = sel_bot(usuario, pwd, tag, maxlikes)
 
-        filename = "IG"
         file = os.getcwd() + "\\" + filename
 
         with open(file, "+w") as f:
             f.write("{},{}".format(last_tag, likes))
-
         
         for a in range(0, 8):
             print(".........." + a)
