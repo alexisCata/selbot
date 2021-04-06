@@ -78,7 +78,7 @@ def sel_bot(usuario, pwd, tag, maxlikes):
         for ind in range(0, 250):
             try:
                 name = driver.find_element_by_xpath(
-                    '/html/body/div[5]/div[2]/div/article/header/div[2]/div[1]/div[1]/span/a')
+                    '/html/body/div[5]/div/div/article/div[2]/div[1]/header/div[2]/div[1]/div[1]/span/a')
                 
                 if name.text != usuario:
                     time.sleep(1)
@@ -99,7 +99,7 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                     if lk in ("Like", "Me gusta"):
                         liked = 0
                         # att.click()
-                        blike = driver.find_element_by_xpath("/html/body/div[5]/div[2]/div/article/div[3]/section[1]/span[1]/button")
+                        blike = driver.find_element_by_xpath("/html/body/div[5]/div/div/article/div[2]/div[2]/div/section[3]/span[1]/button")
                         time.sleep(random.choice(range(4, 7)))
                         blike.click()
                         likes += 1
@@ -138,7 +138,7 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                         if liked == 10:
                             liked = 0
                             break
-                next = driver.find_element_by_xpath("/html/body/div[5]/div[1]/div/div/a[2]")
+                next = driver.find_element_by_xpath("/html/body/div[5]/div/div/article/div[1]/div[1]/div/div/a[2]")
                 next.click()
                 time.sleep(2)
             except BaseException as e:
@@ -260,20 +260,14 @@ if __name__ == "__main__":
     ]
 
     tags = [
-        "hardenduro", "endurospain", "jarvisbasics", "thisisenduro", "enduro", "enduropro", "endurofun",
-        "endurox", "enduroextremo", "enduroextreme", "endurocross",
-        "enduroday", "offroad", "endurolove", "endurorider", "motoenduro", "enduromoto",
-        "extremeenduro", "endurolife", "endurobike", "endurobikes", "endurohard", "enduroadventure",
-        "endurolifestyle", "endurobikes", "endurotraining", "enduroracing",
-        "endurotrails", "endurodelverano", "endurotrail", "endurotrails", "endurohard",
-        "2t", "2tiempos", "2stroke", "ktmenduro", "ktmexc", "ktm300exctpi", "ktm300tpi", "ktm300", "goprohero",
-        "motocross", "motocrosslife", "motocrosslove", "motocrossrider", "motocrossaction", "motocrossgirl",
-        "dirtbike", "dirtbikes", "dirtbikeporn", "dirtbikegirl", "dirtbikesarefun", "dirtbikesarecool",
-        "endureros", "enduroespaña", "endurospain", "endurotraining", "endurofim",
-        "motos", "dosruedas", "rutasenmoto", "moto", "spain", "moteros", "moteras", "instamoto",
-        "pasionporlasmotos", "moteras", "moterosespaña", "locosporlasmotos", "amorporlasmotos",
-        "soymotero",
-        "motoadictos", "motopasion",
+        "perroygato", "perrosygatos", "perrosygatosjuntos", "perrosdeinstagram", "gatosdeinstagram",
+        "dogsofinstagram", "catsofinstagram", "perrosinstagram", "perrosfelices", "perrosgraciosos", "perrosespaña",
+        "dogs", "perros", "perro", "perrito", "cachorro", "cachorros",
+        "gato", "gatos", "kitten", "kittens", "streetcat",
+        "bordercollie", "bordercollies", "bordercolliepuppy", "bordercollieworld", "bordercollielover",
+        "bordercolliesofinstagram",
+        "puppy", "puppylove", "puppyworld", "puppyface", "puppyfun", "puppystagram", "puppypic", "instadog", "instacat",
+
     ]
 
     main(usr, pwd, tags)
