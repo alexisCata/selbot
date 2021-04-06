@@ -87,14 +87,17 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                     except:
                         elements = driver.find_elements_by_css_selector('[aria-label="Like"]')
                     found = False
-
-                    for e in elements:
-                        if e.tag_name == "svg":
+                    lk = ""
+                    if len(elements)>1:
+                        for e in elements:
                             lk = e.get_attribute("aria-label")
-                            found = True
-                    
-                    if not found:
-                        print("WHAT THE FUCK IS GOING ON...? SOMETHING WRONG")
+                            if lk in ["Me gusta", "Like"]:
+                                found = True
+                                break
+                        if not found:
+                            print("WHAT THE FUCK IS GOING ON...? SOMETHING WRONG")
+                    else:
+                        print("LIKED...???")
 
                     if lk in ("Like", "Me gusta"):
                         liked = 0
@@ -244,7 +247,7 @@ def main(usuario, pwd, tags):
             f.write("{},{}".format(last_tag, likes))
         
         for a in range(0, 8):
-            print(".........." + a)
+            print(".........." + str(a))
             time.sleep(4320)
 
 
