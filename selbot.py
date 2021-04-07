@@ -72,7 +72,10 @@ def sel_bot(usuario, pwd, tag, maxlikes):
         driver.execute_script("window.scrollTo(0, 1300)")
         time.sleep(1)
 
-        post = driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div')
+        try:
+            post = driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div')
+        except:
+            post = driver.find_element_by_xpath("/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div[2]")
         post.click()
 
         for ind in range(0, 250):
