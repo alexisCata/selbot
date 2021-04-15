@@ -14,7 +14,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 def sel_bot(usuario, pwd, tag, maxlikes):
     driver = webdriver.Chrome(ChromeDriverManager().install())
-    driver.implicitly_wait(30)
+    driver.implicitly_wait(10)
     driver.maximize_window()
 
     driver.get("http://www.instagram.com")
@@ -63,7 +63,6 @@ def sel_bot(usuario, pwd, tag, maxlikes):
     # except:
     #     pass
 
-
     for t in tag:
         print("#######################################################  {}".format(t))
         driver.get("http://www.instagram.com/explore/tags/{}/".format(t))
@@ -85,14 +84,22 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                     '/html/body/div[5]/div[2]/div/article/header/div[2]/div[1]/div[1]/span/a')
                 
                 if name.text != usuario:
-                    time.sleep(1)
+                    time.sleep(2)
                     try:
                         elements = driver.find_elements_by_css_selector('[aria-label="Me gusta"]')
                     except:
                         elements = driver.find_elements_by_css_selector('[aria-label="Like"]')
                     found = False
                     lk = ""
-                    if len(elements)>1:
+                    # t1 = time.perf_counter()
+                    try:
+                        no = None
+                        no = driver.find_element_by_css_selector('[aria-label="Ya no me gusta"]')
+                    except:
+                        pass
+                    # t2 = time.perf_counter()
+                    # print("Time:" + str(round(t2-t1,1)))
+                    if not no:
                         for e in elements:
                             lk = e.get_attribute("aria-label")
                             if lk in ["Me gusta", "Like"]:
@@ -107,11 +114,11 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                         liked = 0
                         # att.click()
                         blike = driver.find_element_by_xpath("/html/body/div[5]/div[2]/div/article/div[3]/section[1]/span[1]/button")
-                        time.sleep(random.choice(range(4, 7)))
+                        time.sleep(random.choice(range(1, 2)))
                         blike.click()
                         likes += 1
                         print("LIKES: {}/{}".format(likes, maxlikes))
-                        time.sleep(random.choice(range(4, 7)))
+                        time.sleep(random.choice(range(0, 4)))
                         if BOOL_COMMENT:
                             comment = driver.find_element_by_xpath(
                                 "/html/body/div[5]/div[2]/div/article/div[3]/section[3]/div/form/textarea")
@@ -150,7 +157,7 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                 time.sleep(2)
             except BaseException as e:
                 close = driver.find_element_by_xpath(
-                    "/html/body/div[5]/div/div/article/div[2]/div[1]/div/div[2]/button")
+                    "/html/body/div[5]/div[3]/button")
                 close.click()
                 time.sleep(2)
                 scroll = (ind / 9) * 2000

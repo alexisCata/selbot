@@ -14,7 +14,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 def sel_bot(usuario, pwd, tag, maxlikes):
     driver = webdriver.Chrome(ChromeDriverManager().install())
-    driver.implicitly_wait(30)
+    driver.implicitly_wait(10)
     driver.maximize_window()
 
     driver.get("http://www.instagram.com")
@@ -82,17 +82,25 @@ def sel_bot(usuario, pwd, tag, maxlikes):
         for ind in range(0, 250):
             try:
                 name = driver.find_element_by_xpath(
-                    '/html/body/div[5]/div/div/article/div[2]/div[1]/header/div[2]/div[1]/div[1]/span/a')
-                
+                    '/html/body/div[5]/div[2]/div/article/header/div[2]/div[1]/div[1]/span/a')
+
                 if name.text != usuario:
-                    time.sleep(1)
+                    time.sleep(2)
                     try:
                         elements = driver.find_elements_by_css_selector('[aria-label="Me gusta"]')
                     except:
                         elements = driver.find_elements_by_css_selector('[aria-label="Like"]')
                     found = False
                     lk = ""
-                    if len(elements)>1:
+                    # t1 = time.perf_counter()
+                    try:
+                        no = None
+                        no = driver.find_element_by_css_selector('[aria-label="Ya no me gusta"]')
+                    except:
+                        pass
+                    # t2 = time.perf_counter()
+                    # print("Time:" + str(round(t2-t1,1)))
+                    if not no:
                         for e in elements:
                             lk = e.get_attribute("aria-label")
                             if lk in ["Me gusta", "Like"]:
@@ -106,12 +114,12 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                     if lk in ("Like", "Me gusta"):
                         liked = 0
                         # att.click()
-                        blike = driver.find_element_by_xpath("/html/body/div[5]/div/div/article/div[2]/div[2]/div/section[3]/span[1]/button")
-                        time.sleep(random.choice(range(4, 7)))
+                        blike = driver.find_element_by_xpath("/html/body/div[5]/div[2]/div/article/div[3]/section[1]/span[1]/button")
+                        time.sleep(random.choice(range(1, 2)))
                         blike.click()
                         likes += 1
                         print("LIKES: {}/{}".format(likes, maxlikes))
-                        time.sleep(random.choice(range(4, 7)))
+                        time.sleep(random.choice(range(0, 4)))
                         if BOOL_COMMENT:
                             comment = driver.find_element_by_xpath(
                                 "/html/body/div[5]/div[2]/div/article/div[3]/section[3]/div/form/textarea")
@@ -145,20 +153,25 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                         if liked == 10:
                             liked = 0
                             break
-                next = driver.find_element_by_xpath("/html/body/div[5]/div/div/article/div[1]/div[1]/div/div/a[2]")
+                next = driver.find_element_by_xpath("/html/body/div[5]/div[1]/div/div/a[2]")
                 next.click()
                 time.sleep(2)
             except BaseException as e:
                 close = driver.find_element_by_xpath(
-                    "/html/body/div[5]/div/div/article/div[2]/div[1]/div/div[2]/button")
+                    "/html/body/div[5]/div[3]/button")
                 close.click()
                 time.sleep(2)
                 scroll = (ind / 9) * 2000
                 driver.execute_script("window.scrollTo(0, {})".format(scroll))
                 time.sleep(2)
-                post = driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div')
-                time.sleep(2)
-                post.click()
+                try:
+                    post = driver.find_element_by_xpath(
+                        '/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div[1]')
+                    post.click()
+                except:
+                    post = driver.find_element_by_xpath(
+                        "/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[2]/a/div[1]")
+                    post.click()
             if likes > maxlikes:
                 break
         if likes > maxlikes:
