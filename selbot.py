@@ -156,8 +156,10 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                 next.click()
                 time.sleep(2)
             except BaseException as e:
-                close = driver.find_element_by_xpath(
-                    "/html/body/div[5]/div[3]/button")
+                try:
+                    close = driver.find_element_by_xpath("/html/body/div[5]/div[3]/button")
+                except:
+                    close = driver.find_element_by_xpath("/html/body/div[4]/div[3]/button")
                 close.click()
                 time.sleep(2)
                 scroll = (ind / 9) * 2000
