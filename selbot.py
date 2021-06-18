@@ -236,7 +236,7 @@ def main(usuario, pwd, tags):
     while True:
         file = os.getcwd() + "\\" + filename
 
-        with open(file, "+w") as f:
+        with open(file, "+r") as f:
             last = f.readline().split(",")[0]
 
         tag = []
