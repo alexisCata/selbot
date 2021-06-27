@@ -2,7 +2,7 @@ import os
 import random
 import sys
 import time
-
+from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from webdriver_manager.chrome import ChromeDriverManager
@@ -17,162 +17,166 @@ def sel_bot(usuario, pwd, tag, maxlikes):
     driver.implicitly_wait(10)
     driver.maximize_window()
 
-    driver.get("http://www.instagram.com")
-    user = driver.find_element_by_name("username")
-    pasw = driver.find_element_by_name("password")
-    button = driver.find_element_by_class_name("HmktE")
+    try:
 
-    user.send_keys(usuario)
-    pasw.send_keys(pwd)
-    button.submit()
+        driver.get("http://www.instagram.com")
+        user = driver.find_element_by_name("username")
+        pasw = driver.find_element_by_name("password")
+        button = driver.find_element_by_class_name("HmktE")
 
-    # buton_n = driver.find_element_by_class_name("mt3GC")
-    #
-    # actions = ActionChains(driver)
-    # a = "🤟"
-    # a = "🔥"
-    # actions.move_to_element(buton_n).perform()
-    # actions.move_by_offset(20, -20).perform()
-    # actions.click()
+        user.send_keys(usuario)
+        pasw.send_keys(pwd)
+        button.submit()
 
-    JS_ADD_TEXT_TO_INPUT = """
-      var elm = arguments[0], txt = arguments[1];
-      elm.value += txt;
-      elm.dispatchEvent(new Event('change'));
-      """
+        # buton_n = driver.find_element_by_class_name("mt3GC")
+        #
+        # actions = ActionChains(driver)
+        # a = "🤟"
+        # a = "🔥"
+        # actions.move_to_element(buton_n).perform()
+        # actions.move_by_offset(20, -20).perform()
+        # actions.click()
 
-    emojis = get_emojis()
+        JS_ADD_TEXT_TO_INPUT = """
+          var elm = arguments[0], txt = arguments[1];
+          elm.value += txt;
+          elm.dispatchEvent(new Event('change'));
+          """
 
-    likes = 0
-    comments = 0
+        emojis = get_emojis()
 
-    liked = 0
-    skip = False
-    already = False
-    
-    time.sleep(5)
-    
-    # try:
-    #     notif = driver.find_element_by_xpath("/html/body/div[2]/div/div/div/div[2]/button[1]")
-    #     notif.click()
-    # except:
-    #     pass
-    # try:
-    #     cookies = driver.find_element_by_xpath("/html/body/div[2]/div/div/div/div[2]/button[1]")
-    #     cookies.click()
-    # except:
-    #     pass
+        likes = 0
+        comments = 0
 
-    for t in tag:
-        print("#######################################################  {}".format(t))
-        driver.get("http://www.instagram.com/explore/tags/{}/".format(t))
+        liked = 0
+        skip = False
+        already = False
 
-        time.sleep(2)
-        driver.execute_script("window.scrollTo(0, 1300)")
-        time.sleep(1)
+        time.sleep(5)
 
-        try:
-            post = driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div[1]')
-            post.click()
-        except:
-            post = driver.find_element_by_xpath("/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[2]/a/div[1]")
-            post.click()
+        # try:
+        #     notif = driver.find_element_by_xpath("/html/body/div[2]/div/div/div/div[2]/button[1]")
+        #     notif.click()
+        # except:
+        #     pass
+        # try:
+        #     cookies = driver.find_element_by_xpath("/html/body/div[2]/div/div/div/div[2]/button[1]")
+        #     cookies.click()
+        # except:
+        #     pass
 
-        for ind in range(0, 250):
+        for t in tag:
+            print("#######################################################  {}".format(t))
+            driver.get("http://www.instagram.com/explore/tags/{}/".format(t))
+
+            time.sleep(2)
+            driver.execute_script("window.scrollTo(0, 1300)")
+            time.sleep(1)
+
             try:
-                name = driver.find_element_by_xpath(
-                    '/html/body/div[5]/div[2]/div/article/header/div[2]/div[1]/div[1]/span/a')
-                
-                if name.text != usuario:
-                    time.sleep(2)
-                    try:
-                        elements = driver.find_elements_by_css_selector('[aria-label="Me gusta"]')
-                    except:
-                        elements = driver.find_elements_by_css_selector('[aria-label="Like"]')
-                    found = False
-                    lk = ""
-                    # t1 = time.perf_counter()
-                    try:
-                        no = None
-                        no = driver.find_element_by_css_selector('[aria-label="Ya no me gusta"]')
-                    except:
-                        pass
-                    # t2 = time.perf_counter()
-                    # print("Time:" + str(round(t2-t1,1)))
-                    if not no:
-                        for e in elements:
-                            lk = e.get_attribute("aria-label")
-                            if lk in ["Me gusta", "Like"]:
-                                found = True
-                                break
-                        if not found:
-                            print("WHAT THE FUCK IS GOING ON...? SOMETHING WRONG")
-                    else:
-                        print("LIKED...???")
-
-                    if lk in ("Like", "Me gusta"):
-                        liked = 0
-                        # att.click()
-                        blike = driver.find_element_by_xpath("/html/body/div[5]/div[2]/div/article/div[3]/section[1]/span[1]/button")
-                        time.sleep(random.choice(range(1, 2)))
-                        blike.click()
-                        likes += 1
-                        print("LIKES: {}/{}".format(likes, maxlikes))
-                        time.sleep(random.choice(range(0, 4)))
-                        if BOOL_COMMENT:
-                            comment = driver.find_element_by_xpath(
-                                "/html/body/div[5]/div[2]/div/article/div[3]/section[3]/div/form/textarea")
-                            comment.click()
-
-                            if comments == 0 or likes % 20 == 0 or already == True:
-
-                                if already or not skip:
-                                    if already:
-                                        already = False
-                                    elem_text = driver.find_element_by_xpath(
-                                        "/html/body/div[5]/div[2]/div/article/div[3]/section[3]/div/form/textarea")
-                                    text = random.choice(emojis)
-                                    driver.execute_script(JS_ADD_TEXT_TO_INPUT, elem_text, text)
-                                    elem_text.send_keys(" ")
-                                    elem_text.send_keys(Keys.BACKSPACE)
-
-                                    post = driver.find_element_by_xpath(
-                                        "/html/body/div[5]/div[2]/div/article/div[3]/section[3]/div/form/button")
-                                    post.click()
-                                    comments += 1
-                                    print("COMMENTS: {}".format(comments))
-                                    time.sleep(random.choice(range(1, 3)))
-                                else:
-                                    already = True
-
-                                skip = random.choice([True, False])
-                                print(skip)
-                    else:
-                        liked += 1
-                        if liked == 10:
-                            liked = 0
-                            break
-                next = driver.find_element_by_xpath("/html/body/div[5]/div[1]/div/div/a[2]")
-                next.click()
-                time.sleep(2)
-            except BaseException as e:
-                try:
-                    close = driver.find_element_by_xpath("/html/body/div[5]/div[3]/button")
-                except:
-                    close = driver.find_element_by_xpath("/html/body/div[4]/div[3]/button")
-                close.click()
-                time.sleep(2)
-                scroll = (ind / 9) * 2000
-                driver.execute_script("window.scrollTo(0, {})".format(scroll))
-                time.sleep(2)
-                post = driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div')
-                time.sleep(2)
+                post = driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div[1]')
                 post.click()
+            except:
+                post = driver.find_element_by_xpath("/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[2]/a/div[1]")
+                post.click()
+
+            for ind in range(0, 250):
+                try:
+                    name = driver.find_element_by_xpath(
+                        '/html/body/div[5]/div[2]/div/article/header/div[2]/div[1]/div[1]/span/a')
+
+                    if name.text != usuario:
+                        time.sleep(2)
+                        try:
+                            elements = driver.find_elements_by_css_selector('[aria-label="Me gusta"]')
+                        except:
+                            elements = driver.find_elements_by_css_selector('[aria-label="Like"]')
+                        found = False
+                        lk = ""
+                        # t1 = time.perf_counter()
+                        try:
+                            no = None
+                            no = driver.find_element_by_css_selector('[aria-label="Ya no me gusta"]')
+                        except:
+                            pass
+                        # t2 = time.perf_counter()
+                        # print("Time:" + str(round(t2-t1,1)))
+                        if not no:
+                            for e in elements:
+                                lk = e.get_attribute("aria-label")
+                                if lk in ["Me gusta", "Like"]:
+                                    found = True
+                                    break
+                            if not found:
+                                print("WHAT THE FUCK IS GOING ON...? SOMETHING WRONG")
+                        else:
+                            print("LIKED...???")
+
+                        if lk in ("Like", "Me gusta"):
+                            liked = 0
+                            # att.click()
+                            blike = driver.find_element_by_xpath("/html/body/div[5]/div[2]/div/article/div[3]/section[1]/span[1]/button")
+                            time.sleep(random.choice(range(1, 2)))
+                            blike.click()
+                            likes += 1
+                            print("LIKES: {}/{}".format(likes, maxlikes))
+                            time.sleep(random.choice(range(0, 4)))
+                            if BOOL_COMMENT:
+                                comment = driver.find_element_by_xpath(
+                                    "/html/body/div[5]/div[2]/div/article/div[3]/section[3]/div/form/textarea")
+                                comment.click()
+
+                                if comments == 0 or likes % 20 == 0 or already == True:
+
+                                    if already or not skip:
+                                        if already:
+                                            already = False
+                                        elem_text = driver.find_element_by_xpath(
+                                            "/html/body/div[5]/div[2]/div/article/div[3]/section[3]/div/form/textarea")
+                                        text = random.choice(emojis)
+                                        driver.execute_script(JS_ADD_TEXT_TO_INPUT, elem_text, text)
+                                        elem_text.send_keys(" ")
+                                        elem_text.send_keys(Keys.BACKSPACE)
+
+                                        post = driver.find_element_by_xpath(
+                                            "/html/body/div[5]/div[2]/div/article/div[3]/section[3]/div/form/button")
+                                        post.click()
+                                        comments += 1
+                                        print("COMMENTS: {}".format(comments))
+                                        time.sleep(random.choice(range(1, 3)))
+                                    else:
+                                        already = True
+
+                                    skip = random.choice([True, False])
+                                    print(skip)
+                        else:
+                            liked += 1
+                            if liked == 10:
+                                liked = 0
+                                break
+                    next = driver.find_element_by_xpath("/html/body/div[5]/div[1]/div/div/a[2]")
+                    next.click()
+                    time.sleep(2)
+                except BaseException as e:
+                    try:
+                        close = driver.find_element_by_xpath("/html/body/div[5]/div[3]/button")
+                    except:
+                        close = driver.find_element_by_xpath("/html/body/div[4]/div[3]/button")
+                    close.click()
+                    time.sleep(2)
+                    scroll = (ind / 9) * 2000
+                    driver.execute_script("window.scrollTo(0, {})".format(scroll))
+                    time.sleep(2)
+                    post = driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div')
+                    time.sleep(2)
+                    post.click()
+                if likes > maxlikes:
+                    break
             if likes > maxlikes:
                 break
-        if likes > maxlikes:
-            break
 
+    except e as Exception:
+        print("ERRORRRRR...." + str(e))
     driver.close()
 
     return t, likes
@@ -258,9 +262,13 @@ def main(usuario, pwd, tags):
         with open(file, "+w") as f:
             f.write("{},{}".format(last_tag, likes))
 
-        
-        for a in range(0, 8):
+        if likes > 500:
+            r = range(0, 8)
+        else:
+            r = range(0, 4)
+        for a in r:
             print(".........." + str(a))
+            print(".........." + str(datetime.now()))
             time.sleep(4320)
 
 
