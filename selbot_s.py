@@ -175,7 +175,7 @@ def sel_bot(usuario, pwd, tag, maxlikes):
             if likes > maxlikes:
                 break
 
-    except e as Exception:
+    except Exception as e:
         print("ERRORRRRR...." + str(e))
     driver.close()
 
