@@ -237,7 +237,7 @@ def main(usuario, pwd, tags):
     else:
         ran = range(690, 790)
 
-    ran = range(390, 490)
+    ran = range(380, 400)
 
     filename = "IGs"
 
