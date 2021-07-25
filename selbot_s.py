@@ -179,7 +179,6 @@ def sel_bot(usuario, pwd, tag, maxlikes):
         print("ERRORRRRR...." + str(e))
     driver.close()
 
-    driver.close()
 
     return t, likes
 
