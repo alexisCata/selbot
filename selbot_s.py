@@ -266,7 +266,7 @@ def main(usuario, pwd, tags):
             f.write("{},{}".format(last_tag, likes))
 
         
-        if likes > 500:
+        if likes > 200:
             r = range(0, 8)
         else:
             r = range(0, 4)
