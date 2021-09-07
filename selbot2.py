@@ -238,9 +238,9 @@ def get_emojis():
 
 def main(usuario, pwd, tags):
     if BOOL_COMMENT:
-        ran = range(590, 690)
+        ran = range(490, 590)
     else:
-        ran = range(690, 790)
+        ran = range(590, 690)
 
     filename = "IG2"
 
