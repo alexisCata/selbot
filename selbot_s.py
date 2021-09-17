@@ -83,7 +83,7 @@ def sel_bot(usuario, pwd, tag, maxlikes):
             for ind in range(0, 250):
                 try:
                     name = driver.find_element_by_xpath(
-                        '/html/body/div[6]/div[2]/div/article/header/div[2]/div[1]/div/span/a')
+                        '/html/body/div[6]/div[2]/div/article/div/div[2]/div/div[1]/div/header/div[2]/div[1]/div[1]/span/a')
 
                     if name.text != usuario:
                         time.sleep(2)
@@ -116,7 +116,7 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                             liked = 0
                             # att.click()
                             blike = driver.find_element_by_xpath(
-                                "/html/body/div[6]/div[2]/div/article/div[3]/section[1]/span[1]/button")
+                                "/html/body/div[6]/div[2]/div/article/div/div[2]/div/div[2]/section[1]/span[1]/button")
                             time.sleep(random.choice(range(1, 2)))
                             blike.click()
                             likes += 1

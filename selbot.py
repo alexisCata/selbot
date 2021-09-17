@@ -83,7 +83,7 @@ def sel_bot(usuario, pwd, tag, maxlikes):
             for ind in range(0, 250):
                 try:
                     name = driver.find_element_by_xpath(
-                        '/html/body/div[6]/div[2]/div/article/header/div[2]/div[1]/div/span/a')
+                        '/html/body/div[6]/div[2]/div/article/div/div[2]/div/div[1]/div/header/div[2]/div[1]/div[1]/span/a')
 
                     if name.text != usuario:
                         time.sleep(2)
@@ -117,7 +117,7 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                             # att.click()
                             try:
                                 blike = driver.find_element_by_xpath(
-                                    "/html/body/div[6]/div[2]/div/article/div[3]/section[1]/span[1]/button")
+                                    "/html/body/div[6]/div[2]/div/article/div/div[2]/div/div[2]/section[1]/span[1]/button")
                                 time.sleep(random.choice(range(1, 2)))
                                 blike.click()
                                 likes += 1
@@ -298,7 +298,7 @@ if __name__ == "__main__":
 
     tags = [
         "hardenduro", "endurospain", "jarvisbasics", "thisisenduro", "enduro", "enduropro", "endurofun",
-        "endurox", "enduroextremo", "enduroextreme", "endurocross",
+        "endurox", "enduroextremo", "malaga", "enduroextreme", "endurocross",
         "enduroday", "offroad", "endurolove", "endurorider", "motoenduro", "enduromoto",
         "extremeenduro", "endurolife", "endurobike", "endurobikes", "endurohard", "enduroadventure",
         "endurolifestyle", "endurobikes", "endurotraining", "enduroracing",
@@ -307,10 +307,10 @@ if __name__ == "__main__":
         "motocross", "motocrosslife", "motocrosslove", "motocrossrider", "motocrossaction", "motocrossgirl",
         "dirtbike", "dirtbikes", "dirtbikeporn", "dirtbikegirl", "dirtbikesarefun", "dirtbikesarecool",
         "endureros", "enduroespaña", "endurospain", "endurotraining", "endurofim",
-        "motos", "dosruedas", "rutasenmoto", "moto", "spain", "moteros", "moteras", "instamoto",
+        "motos", "dosruedas", "rutasenmoto", "moto", "spain", "españa", "moteros", "moteras", "instamoto",
         "pasionporlasmotos", "moteras", "moterosespaña", "locosporlasmotos", "amorporlasmotos",
         "soymotero",
-        "motoadictos", "motopasion",
+        "motoadictos", "motopasion", "andalucia"
     ]
 
     main(usr, pwd, tags)
