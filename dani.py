@@ -54,17 +54,16 @@ def sel_bot(usuario, pwd, tag, maxlikes):
 
         time.sleep(5)
 
-        try:
-            notif = driver.find_element_by_xpath("/html/body/div[2]/div/div/div/div[2]/button[1]")
-            notif.click()
-        except:
-            pass
+        # try:
+        #     notif = driver.find_element_by_xpath("/html/body/div[2]/div/div/div/div[2]/button[1]")
+        #     notif.click()
+        # except:
+        #     pass
         # try:
         #     cookies = driver.find_element_by_xpath("/html/body/div[2]/div/div/div/div[2]/button[1]")
         #     cookies.click()
         # except:
         #     pass
-
 
         for t in tag:
             print("#######################################################  {}".format(t))
@@ -170,21 +169,18 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                     scroll = (ind / 9) * 2000
                     driver.execute_script("window.scrollTo(0, {})".format(scroll))
                     time.sleep(2)
-                    try:
-                        post = driver.find_element_by_xpath(
-                            '/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div[1]')
-                        post.click()
-                    except:
-                        post = driver.find_element_by_xpath(
-                            "/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[2]/a/div[1]")
-                        post.click()
+                    post = driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div')
+                    time.sleep(2)
+                    post.click()
                 if likes > maxlikes:
                     break
             if likes > maxlikes:
                 break
+
     except Exception as e:
         print("ERRORRRRR...." + str(e))
     driver.close()
+
 
     return t, likes
 
@@ -238,17 +234,18 @@ def get_emojis():
 
 def main(usuario, pwd, tags):
     if BOOL_COMMENT:
-        ran = range(490, 590)
-    else:
         ran = range(590, 690)
+    else:
+        ran = range(690, 790)
 
-    filename = "IG2"
+    ran = range(150, 200)
+
+    filename = "Dani"
 
     while True:
-
         file = os.getcwd() + "\\" + filename
 
-        with open(file, "+w") as f:
+        with open(file, "+r") as f:
             last = f.readline().split(",")[0]
 
         tag = []
@@ -270,7 +267,8 @@ def main(usuario, pwd, tags):
         with open(file, "+w") as f:
             f.write("{},{}".format(last_tag, likes))
 
-        if likes > 500:
+        
+        if likes > 200:
             r = range(0, 8)
         else:
             r = range(0, 4)
@@ -292,13 +290,20 @@ if __name__ == "__main__":
     ]
 
     tags = [
-        "perroygato", "perrosygatos", "perrosygatosjuntos", "perrosdeinstagram", "gatosdeinstagram",
-        "dogsofinstagram", "catsofinstagram", "perrosinstagram", "perrosfelices", "perrosgraciosos", "perrosespaña",
-        "dogs", "perros", "perro", "perrito", "cachorro", "cachorros",
-        "gato", "gatos", "kitten", "kittens", "streetcat",
-        "bordercollie", "bordercollies", "bordercolliepuppy", "bordercollieworld", "bordercollielover",
-        "bordercolliesofinstagram",
-        "puppy", "puppylove", "puppyworld", "puppyface", "puppyfun", "puppystagram", "puppypic", "instadog", "instacat",
+        "endureros", "enduroespaña", "endurospain", "endurotraining", "endurofim",
+        "motos", "dosruedas", "rutasenmoto", "moto", "spain", "moteros", "moteras", "instamoto",
+        "pasionporlasmotos", "moteras", "moterosespaña", "locosporlasmotos", "amorporlasmotos",
+        "soymotero",
+        "motoadictos", "motopasion",
+        "hardenduro", "endurospain", "jarvisbasics", "thisisenduro", "enduro", "enduropro", "endurofun",
+        "endurox", "enduroextremo", "enduroextreme", "endurocross",
+        "enduroday", "offroad", "endurolove", "endurorider", "motoenduro", "enduromoto",
+        "extremeenduro", "endurolife", "endurobike", "endurobikes", "endurohard", "enduroadventure",
+        "endurolifestyle", "endurobikes", "endurotraining", "enduroracing",
+        "endurotrails", "endurodelverano", "endurotrail", "endurotrails", "endurohard",
+        "2t", "2tiempos", "2stroke", "ktmenduro", "ktmexc", "ktm300exctpi", "ktm300tpi", "ktm300", "goprohero",
+        "motocross", "motocrosslife", "motocrosslove", "motocrossrider", "motocrossaction", "motocrossgirl",
+        "dirtbike", "dirtbikes", "dirtbikeporn", "dirtbikegirl", "dirtbikesarefun", "dirtbikesarecool",
 
     ]
 

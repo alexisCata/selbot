@@ -82,6 +82,7 @@ def sel_bot(usuario, pwd, tag, maxlikes):
 
             for ind in range(0, 250):
                 try:
+                    time.sleep(2)
                     name = driver.find_element_by_xpath(
                         '/html/body/div[6]/div[2]/div/article/div/div[2]/div/div[1]/div/header/div[2]/div[1]/div[1]/span/a')
 
