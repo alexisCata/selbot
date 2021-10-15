@@ -18,7 +18,8 @@ def sel_bot(usuario, pwd, tag, maxlikes):
     driver.maximize_window()
 
     try:
-
+        t = None
+        likes = 0
         driver.get("http://www.instagram.com")
         user = driver.find_element_by_name("username")
         pasw = driver.find_element_by_name("password")
@@ -290,6 +291,14 @@ if __name__ == "__main__":
     tags = [
         "tag1", "tag2", "tag3..."
     ]
+
+    tags = ["Malaga", "Madrid", "Sevilla", "LaCoruña", "Valencia", "Asturias", "Andalucia",
+            "Extremadura", "Castillalamancha", "CastillaLeon", "Aragon", "Galicia" "Zaragoza",
+            "Pontevedra", "Granada", "Alicante", "Cordoba", "Almeria", "Murcia", "Cadiz", "Toledo",
+            "Badajoz", "Navarra", "Jaen", "Castellon", "Cantabria", "Huelva", "Valladolid", "CiudadReal",
+            "Caceres", "Albacete", "Burgos", "Álava", "Salamanca", "Lugo", "LaRioja", "Orense", "Guadalajara",
+            "Huesca", "Cuenca", "Zamora", "Palencia", "Avila", "Segovia", "Teruel", "Soria", "Baleares",
+            "Barcelona", "Vizcaya", "LasPalmas", "SantaCruzdeTenerife", "Tarragona", "Gerona", "Guipuzcoa", "Lerida", ]
 
     tags = [
         "perroygato", "perrosygatos", "perrosygatosjuntos", "perrosdeinstagram", "gatosdeinstagram",

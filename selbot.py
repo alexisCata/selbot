@@ -18,7 +18,8 @@ def sel_bot(usuario, pwd, tag, maxlikes):
     driver.maximize_window()
 
     try:
-
+        t = None
+        likes = 0
         driver.get("http://www.instagram.com")
         user = driver.find_element_by_name("username")
         pasw = driver.find_element_by_name("password")
@@ -74,13 +75,15 @@ def sel_bot(usuario, pwd, tag, maxlikes):
             time.sleep(1)
 
             try:
-                post = driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div[1]')
+                post = driver.find_element_by_xpath(
+                    '/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div[1]')
                 post.click()
             except:
-                post = driver.find_element_by_xpath("/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[2]/a/div[1]")
+                post = driver.find_element_by_xpath(
+                    "/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[2]/a/div[1]")
                 post.click()
 
-            for ind in range(0, 250):
+            for ind in range(50, 100):
                 try:
                     time.sleep(2)
                     name = driver.find_element_by_xpath(
@@ -178,7 +181,8 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                     driver.execute_script("window.scrollTo(0, {})".format(scroll))
                     time.sleep(2)
                     try:
-                        post = driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div')
+                        post = driver.find_element_by_xpath(
+                            '/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div')
                         time.sleep(2)
                         post.click()
                     except Exception as e:
@@ -297,6 +301,14 @@ if __name__ == "__main__":
         "tag1", "tag2", "tag3..."
     ]
 
+    tags = ["Malaga", "Madrid", "Sevilla", "LaCoruña", "Valencia", "Asturias", "Andalucia",
+            "Extremadura", "Castillalamancha", "CastillaLeon", "Aragon", "Galicia" "Zaragoza",
+            "Pontevedra", "Granada", "Alicante", "Cordoba", "Almeria", "Murcia", "Cadiz", "Toledo",
+            "Badajoz", "Navarra", "Jaen", "Castellon", "Cantabria", "Huelva", "Valladolid", "CiudadReal",
+            "Caceres", "Albacete", "Burgos", "Álava", "Salamanca", "Lugo", "LaRioja", "Orense", "Guadalajara",
+            "Huesca", "Cuenca", "Zamora", "Palencia", "Avila", "Segovia", "Teruel", "Soria", "Baleares",
+            "Barcelona", "Vizcaya", "LasPalmas", "SantaCruzdeTenerife", "Tarragona", "Gerona", "Guipuzcoa", "Lerida", ]
+
     tags = [
         "hardenduro", "endurospain", "jarvisbasics", "thisisenduro", "enduro", "enduropro", "endurofun",
         "endurox", "enduroextremo", "malaga", "enduroextreme", "endurocross",
@@ -313,5 +325,4 @@ if __name__ == "__main__":
         "soymotero",
         "motoadictos", "motopasion", "andalucia"
     ]
-
     main(usr, pwd, tags)
