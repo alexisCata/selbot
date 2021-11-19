@@ -84,7 +84,8 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                 try:
                     time.sleep(2)
                     name = driver.find_element_by_xpath(
-                        '/html/body/div[6]/div[2]/div/article/div/div[2]/div/div[1]/div/header/div[2]/div[1]/div[1]/span/a')
+                        '/html/body/div[6]/div[2]/div/article/div/div[2]/div/div/div[1]/div/header/div[2]/div[1]/div[1]/span/a')
+                    # '/html/body/div[6]/div[2]/div/article/div/div[2]/div/div[1]/div/header/div[2]/div[1]/div[1]/span/a')
 
                     if name.text != usuario:
                         time.sleep(2)
@@ -117,7 +118,8 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                             liked = 0
                             # att.click()
                             blike = driver.find_element_by_xpath(
-                                "/html/body/div[6]/div[2]/div/article/div/div[2]/div/div[2]/section[1]/span[1]/button")
+                                '/html/body/div[6]/div[2]/div/article/div/div[2]/div/div/div[2]/section[1]/span[1]/button')
+                            # "/html/body/div[6]/div[2]/div/article/div/div[2]/div/div[2]/section[1]/span[1]/button")
                             time.sleep(random.choice(range(1, 2)))
                             blike.click()
                             likes += 1
@@ -156,9 +158,14 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                             if liked == 10:
                                 liked = 0
                                 break
-                    next = driver.find_element_by_xpath("/html/body/div[6]/div[1]/div/div/a[2]")
-                    next.click()
-                    time.sleep(2)
+                    try:
+                        #next = driver.find_element_by_xpath("/html/body/div[6]/div[1]/div/div/a[2]")
+                        next = driver.find_element_by_xpath("/html/body/div[6]/div[1]/div/div/div[2]/button")
+                        next.click()
+                        time.sleep(2)
+                    except Exception as e:
+                        print(2)
+                        print(e)
                 except BaseException as e:
                     try:
                         close = driver.find_element_by_xpath("/html/body/div[5]/div[3]/button")
@@ -238,7 +245,7 @@ def main(usuario, pwd, tags):
     else:
         ran = range(690, 790)
 
-    ran = range(150, 200)
+    ran = range(50, 75)
 
     filename = "IGs"
 
