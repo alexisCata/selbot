@@ -25,6 +25,9 @@ def sel_bot(usuario, pwd, tag, maxlikes):
         pasw = driver.find_element_by_name("password")
         button = driver.find_element_by_class_name("HmktE")
 
+        cookie = driver.find_element_by_xpath("/html/body/div[4]/div/div/button[1]")
+        cookie.click()
+
         user.send_keys(usuario)
         pasw.send_keys(pwd)
         button.submit()
