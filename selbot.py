@@ -76,7 +76,7 @@ def sel_bot(usuario, pwd, tag, maxlikes):
 
             try:
                 post = driver.find_element_by_xpath(
-                    '/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div[1]')
+                    '/html/body/div[1]/div/div[1]/div/div[1]/div/div/div[1]/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div/div[2]')
                 post.click()
             except:
                 post = driver.find_element_by_xpath(
@@ -87,7 +87,7 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                 try:
                     time.sleep(2)
                     name = driver.find_element_by_xpath(
-                        '/html/body/div[6]/div[2]/div/article/div/div[2]/div/div/div[1]/div/header/div[2]/div[1]/div[1]/span/a')
+                        '/html/body/div[1]/div/div[1]/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[1]/div/header/div[2]/div[1]/div[1]/div/span/a')
                         #'/html/body/div[6]/div[2]/div/article/div/div[2]/div/div[1]/div/header/div[2]/div[1]/div[1]/span/a')
 
                     if name.text != usuario:
@@ -122,8 +122,7 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                             # att.click()
                             try:
                                 blike = driver.find_element_by_xpath(
-                                    '/html/body/div[6]/div[2]/div/article/div/div[2]/div/div/div[2]/section[1]/span[1]/button')
-                                    #"/html/body/div[6]/div[2]/div/article/div/div[2]/div/div[2]/section[1]/span[1]/button")
+                                    "/html/body/div[1]/div/div[1]/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[2]/section[1]/span[1]/button")
                                 time.sleep(random.choice(range(1, 2)))
                                 blike.click()
                                 likes += 1
@@ -167,7 +166,7 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                                 break
                     try:
                         #next = driver.find_element_by_xpath("/html/body/div[6]/div[1]/div/div/a[2]")
-                        next = driver.find_element_by_xpath("/html/body/div[6]/div[1]/div/div/div[2]/button")
+                        next = driver.find_element_by_xpath("/html/body/div[1]/div/div[1]/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button")
                         next.click()
                         time.sleep(2)
                     except Exception as e:
@@ -254,7 +253,7 @@ def main(usuario, pwd, tags):
     if BOOL_COMMENT:
         ran = range(490, 590)
     else:
-        ran = range(590, 690)
+        ran = range(290, 300)
 
     filename = "IG"
 
@@ -286,7 +285,7 @@ def main(usuario, pwd, tags):
         if likes > 500:
             r = range(0, 8)
         else:
-            r = range(0, 4)
+            r = range(0, 8)
         for a in r:
             print(".........." + str(a))
             print(".........." + str(datetime.now()))
@@ -323,7 +322,7 @@ if __name__ == "__main__":
 
     #,tags = [
         "Malaga", "Madrid", "Sevilla", "LaCoruña", "Valencia", "Asturias", "Andalucia",
-            "Extremadura", "Castillalamancha", "CastillaLeon", "Aragon", "Galicia" "Zaragoza",
+            "Extremadura", "Castillalamancha", "CastillaLeon", "Aragon", "Galicia", "Zaragoza",
             "Pontevedra", "Granada", "Alicante", "Cordoba", "Almeria", "Murcia", "Cadiz", "Toledo",
             "Badajoz", "Navarra", "Jaen", "Castellon", "Cantabria", "Huelva", "Valladolid", "CiudadReal",
             "Caceres", "Albacete", "Burgos", "Álava", "Salamanca", "Lugo", "LaRioja", "Orense", "Guadalajara",
