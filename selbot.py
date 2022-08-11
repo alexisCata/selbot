@@ -73,13 +73,13 @@ def sel_bot(usuario, pwd, tag, maxlikes):
             print("#######################################################  {}".format(t))
             driver.get("http://www.instagram.com/explore/tags/{}/".format(t))
 
-            time.sleep(2)
+            time.sleep(3)
             driver.execute_script("window.scrollTo(0, 1300)")
             time.sleep(1)
 
             try:
                 post = driver.find_element_by_xpath(
-                    '/html/body/div[1]/div/div[1]/div/div[1]/div/div/div[1]/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div/div[2]')
+                    '/html/body/div[1]/div/div[1]/div/div[1]/div/div/div/div[1]/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div/div[2]')
                 post.click()
             except:
                 post = driver.find_element_by_xpath(
@@ -90,8 +90,7 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                 try:
                     time.sleep(2)
                     name = driver.find_element_by_xpath(
-                        '/html/body/div[1]/div/div[1]/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[1]/div/header/div[2]/div[1]/div[1]/div/span/a')
-                        #'/html/body/div[6]/div[2]/div/article/div/div[2]/div/div[1]/div/header/div[2]/div[1]/div[1]/span/a')
+                        '/html/body/div[1]/div/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[2]/div[1]/ul/div/li/div/div/div[2]/h2/div/span/a')
 
                     if name.text != usuario:
                         time.sleep(2)
