@@ -14,24 +14,26 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 def sel_bot(usuario, pwd, tag, maxlikes):
     driver = webdriver.Chrome(ChromeDriverManager().install())
-    driver.implicitly_wait(10)
+    driver.implicitly_wait(5)
     driver.maximize_window()
 
     try:
         t = None
         likes = 0
         driver.get("http://www.instagram.com")
+
+        time.sleep(3)
+        cookies = driver.find_element_by_xpath("/html/body/div[1]/div/div/div/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/button[1]")
+        cookies.click()
         user = driver.find_element_by_name("username")
         pasw = driver.find_element_by_name("password")
-        button = driver.find_element_by_class_name("HmktE")
+        button = driver.find_element_by_xpath("/html/body/div[1]/div/div/div/div[1]/div/div/div/div[1]/section/main/article/div[2]/div[1]/div[2]/form/div/div[3]/button")
 
-        cookie = driver.find_element_by_xpath("/html/body/div[4]/div/div/button[1]")
-        cookie.click()
-
+        time.sleep(3)
         user.send_keys(usuario)
         pasw.send_keys(pwd)
         button.submit()
-
+        time.sleep(5)
         # buton_n = driver.find_element_by_class_name("mt3GC")
         #
         # actions = ActionChains(driver)
@@ -73,13 +75,14 @@ def sel_bot(usuario, pwd, tag, maxlikes):
             print("#######################################################  {}".format(t))
             driver.get("http://www.instagram.com/explore/tags/{}/".format(t))
 
-            time.sleep(3)
-            driver.execute_script("window.scrollTo(0, 1300)")
-            time.sleep(1)
+            time.sleep(5)
+            driver.execute_script("window.scrollTo(0, 200)")
+            time.sleep(5)
 
             try:
+                print("POST")
                 post = driver.find_element_by_xpath(
-                    '/html/body/div[1]/div/div[1]/div/div[1]/div/div/div/div[1]/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div/div[2]')
+                    '/html/body/div[1]/div/div/div/div[1]/div/div/div/div[1]/section/main/article/div/div/div/div[1]/div[3]/a')
                 post.click()
             except:
                 post = driver.find_element_by_xpath(
@@ -88,12 +91,17 @@ def sel_bot(usuario, pwd, tag, maxlikes):
 
             for ind in range(50, 100):
                 try:
-                    time.sleep(2)
-                    name = driver.find_element_by_xpath(
-                        '/html/body/div[1]/div/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[2]/div[1]/ul/div/li/div/div/div[2]/h2/div/span/a')
+                    time.sleep(7)
+                    print("NAME")
+                    try:
+                        name = driver.find_element_by_xpath(
+                            '/html/body/div[1]/div/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[2]/div[1]/ul/div/li/div/div/div[2]/h2/div/span/a')
+                    except:
+                        name = driver.find_element_by_xpath(
+                            '/html/body/div[1]/div/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[1]/div/header/div[2]/div[1]/div[1]/div/div/div/span/a')
 
                     if name.text != usuario:
-                        time.sleep(2)
+                        #time.sleep(2)
                         try:
                             elements = driver.find_elements_by_css_selector('[aria-label="Me gusta"]')
                         except:
@@ -118,11 +126,13 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                                 print("WHAT THE FUCK IS GOING ON...? SOMETHING WRONG")
                         else:
                             print("LIKED...???")
+                            print(datetime.now())
 
                         if lk in ("Like", "Me gusta"):
                             liked = 0
                             # att.click()
                             try:
+                                print("LIKE")
                                 blike = driver.find_element_by_xpath(
                                     "/html/body/div[1]/div/div[1]/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[2]/section[1]/span[1]/button")
                                 time.sleep(random.choice(range(1, 2)))
@@ -132,7 +142,8 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                                 print(1)
                                 print(e)
                             print("LIKES: {}/{}".format(likes, maxlikes))
-                            time.sleep(random.choice(range(0, 4)))
+                            print(datetime.now())
+                            time.sleep(random.choice(range(0, 3)))
                             if BOOL_COMMENT:
                                 comment = driver.find_element_by_xpath(
                                     "/html/body/div[5]/div[2]/div/article/div[3]/section[3]/div/form/textarea")
@@ -168,7 +179,8 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                                 break
                     try:
                         #next = driver.find_element_by_xpath("/html/body/div[6]/div[1]/div/div/a[2]")
-                        next = driver.find_element_by_xpath("/html/body/div[1]/div/div[1]/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button")
+                        print("NEXT")
+                        next = driver.find_element_by_xpath("/html/body/div[1]/div/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button")
                         next.click()
                         time.sleep(2)
                     except Exception as e:
@@ -176,9 +188,9 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                         print(e)
                 except BaseException as e:
                     try:
-                        close = driver.find_element_by_xpath("/html/body/div[6]/div[3]/button")
+                        close = driver.find_element_by_xpath("/html/body/div[1]/div/div/div/div[2]/div/div/div[1]/div/div[2]/div/div/svg")
                     except:
-                        close = driver.find_element_by_xpath("/html/body/div[4]/div[3]/button")
+                        close = driver.find_element_by_xpath("/html/body/div[1]/div/div/div/div[2]/div/div/div[1]/div/div[2]/div/div")
                     close.click()
                     time.sleep(2)
                     scroll = (ind / 9) * 2000
@@ -255,7 +267,7 @@ def main(usuario, pwd, tags):
     if BOOL_COMMENT:
         ran = range(490, 590)
     else:
-        ran = range(290, 300)
+        ran = range(350, 399)
 
     filename = "IG"
 
@@ -320,16 +332,15 @@ if __name__ == "__main__":
         "pasionporlasmotos", "moteras", "moterosespaña", "locosporlasmotos", "amorporlasmotos",
         "soymotero",
         "motoadictos", "motopasion", "andalucia",
-    ##,]
 
-    #,tags = [
-        "Malaga", "Madrid", "Sevilla", "LaCoruña", "Valencia", "Asturias", "Andalucia",
-            "Extremadura", "Castillalamancha", "CastillaLeon", "Aragon", "Galicia", "Zaragoza",
-            "Pontevedra", "Granada", "Alicante", "Cordoba", "Almeria", "Murcia", "Cadiz", "Toledo",
-            "Badajoz", "Navarra", "Jaen", "Castellon", "Cantabria", "Huelva", "Valladolid", "CiudadReal",
-            "Caceres", "Albacete", "Burgos", "Álava", "Salamanca", "Lugo", "LaRioja", "Orense", "Guadalajara",
-            "Huesca", "Cuenca", "Zamora", "Palencia", "Avila", "Segovia", "Teruel", "Soria", "Baleares",
-            "Barcelona", "Vizcaya", "LasPalmas", "SantaCruzdeTenerife", "Tarragona", "Gerona", "Guipuzcoa", "Lerida", ]
+        # "Malaga", "Madrid", "Sevilla", "LaCoruña", "Valencia", "Asturias", "Andalucia",
+        #     "Extremadura", "Castillalamancha", "CastillaLeon", "Aragon", "Galicia", "Zaragoza",
+        #     "Pontevedra", "Granada", "Alicante", "Cordoba", "Almeria", "Murcia", "Cadiz", "Toledo",
+        #     "Badajoz", "Navarra", "Jaen", "Castellon", "Cantabria", "Huelva", "Valladolid", "CiudadReal",
+        #     "Caceres", "Albacete", "Burgos", "Álava", "Salamanca", "Lugo", "LaRioja", "Orense", "Guadalajara",
+        #     "Huesca", "Cuenca", "Zamora", "Palencia", "Avila", "Segovia", "Teruel", "Soria", "Baleares",
+        #     "Barcelona", "Vizcaya", "LasPalmas", "SantaCruzdeTenerife", "Tarragona", "Gerona", "Guipuzcoa", "Lerida",
+    ]
 
 
     main(usr, pwd, tags)
