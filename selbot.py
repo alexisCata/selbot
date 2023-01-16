@@ -23,11 +23,12 @@ def sel_bot(usuario, pwd, tag, maxlikes):
         driver.get("http://www.instagram.com")
 
         time.sleep(3)
-        cookies = driver.find_element_by_xpath("/html/body/div[1]/div/div/div/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/button[1]")
+        cookies = driver.find_element("xpath", "/html/body/div[2]/div/div/div/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/button[1]")
         cookies.click()
-        user = driver.find_element_by_name("username")
-        pasw = driver.find_element_by_name("password")
-        button = driver.find_element_by_xpath("/html/body/div[1]/div/div/div/div[1]/div/div/div/div[1]/section/main/article/div[2]/div[1]/div[2]/form/div/div[3]/button")
+        user = driver.find_element("name", "username")
+        pasw = driver.find_element("name", "password")
+        time.sleep(1)
+        button = driver.find_element("xpath", "/html/body/div[2]/div/div/div/div[1]/div/div/div/div[1]/section/main/article/div[2]/div[1]/div[2]/form/div/div[3]/button")
 
         time.sleep(3)
         user.send_keys(usuario)
@@ -61,12 +62,12 @@ def sel_bot(usuario, pwd, tag, maxlikes):
         time.sleep(5)
 
         # try:
-        #     notif = driver.find_element_by_xpath("/html/body/div[2]/div/div/div/div[2]/button[1]")
+        #     notif = driver.find_element("xpath", "/html/body/div[2]/div/div/div/div[2]/button[1]")
         #     notif.click()
         # except:
         #     pass
         # try:
-        #     cookies = driver.find_element_by_xpath("/html/body/div[2]/div/div/div/div[2]/button[1]")
+        #     cookies = driver.find_element("xpath", "/html/body/div[2]/div/div/div/div[2]/button[1]")
         #     cookies.click()
         # except:
         #     pass
@@ -76,17 +77,18 @@ def sel_bot(usuario, pwd, tag, maxlikes):
             driver.get("http://www.instagram.com/explore/tags/{}/".format(t))
 
             time.sleep(5)
-            driver.execute_script("window.scrollTo(0, 200)")
+            driver.execute_script("window.scrollTo(0, 1200)")
             time.sleep(5)
 
             try:
                 print("POST")
-                post = driver.find_element_by_xpath(
-                    '/html/body/div[1]/div/div/div/div[1]/div/div/div/div[1]/section/main/article/div/div/div/div[1]/div[3]/a')
+                post = driver.find_element("xpath", 
+                    '/html/body/div[2]/div/div/div/div[1]/div/div/div/div[1]/div[1]/div[2]/section/main/article/div[2]/div/div[1]/div[1]/a/div')
                 post.click()
             except:
-                post = driver.find_element_by_xpath(
-                    "/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[2]/a/div[1]")
+                time.sleep(10)
+                post = driver.find_element("xpath",
+                                           '/html/body/div[2]/div/div/div/div[1]/div/div/div/div[1]/div[1]/div[2]/section/main/article/div[2]/div/div[1]/div[1]/a/div')
                 post.click()
 
             for ind in range(50, 100):
@@ -94,34 +96,25 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                     time.sleep(7)
                     print("NAME")
                     try:
-                        name = driver.find_element_by_xpath(
-                            '/html/body/div[1]/div/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[2]/div[1]/ul/div/li/div/div/div[2]/h2/div/span/a')
+                        name = driver.find_element("xpath", 
+                            '/html/body/div[2]/div/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[2]/div[1]/ul/div/li/div/div/div[2]/h2/div/div/a')
                     except:
-                        name = driver.find_element_by_xpath(
-                            '/html/body/div[1]/div/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[1]/div/header/div[2]/div[1]/div[1]/div/div/div/span/a')
+                        name = driver.find_element("xpath", 
+                            '/html/body/div[1]/div/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[2]/div[1]/ul/div/li/div/div/div[2]/h2/div/span/a')
 
                     if name.text != usuario:
-                        #time.sleep(2)
-                        try:
-                            elements = driver.find_elements_by_css_selector('[aria-label="Me gusta"]')
-                        except:
-                            elements = driver.find_elements_by_css_selector('[aria-label="Like"]')
                         found = False
-                        lk = ""
-                        # t1 = time.perf_counter()
                         try:
+                            element = driver.find_element("css selector", '[aria-label="Me gusta"]')
                             no = None
-                            no = driver.find_element_by_css_selector('[aria-label="Ya no me gusta"]')
                         except:
-                            pass
-                        # t2 = time.perf_counter()
-                        # print("Time:" + str(round(t2-t1,1)))
+                            no = driver.find_element("css selector", '[aria-label="Ya no me gusta"]')
+
+                        lk = ""
                         if not no:
-                            for e in elements:
-                                lk = e.get_attribute("aria-label")
-                                if lk in ["Me gusta", "Like"]:
-                                    found = True
-                                    break
+                            lk = element.get_attribute("aria-label")
+                            if lk in ["Me gusta", "Like"]:
+                                found = True
                             if not found:
                                 print("WHAT THE FUCK IS GOING ON...? SOMETHING WRONG")
                         else:
@@ -133,8 +126,8 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                             # att.click()
                             try:
                                 print("LIKE")
-                                blike = driver.find_element_by_xpath(
-                                    "/html/body/div[1]/div/div[1]/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[2]/section[1]/span[1]/button")
+                                blike = driver.find_element("xpath", 
+                                    "/html/body/div[2]/div/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[2]/section[1]/span[1]/button")
                                 time.sleep(random.choice(range(1, 2)))
                                 blike.click()
                                 likes += 1
@@ -145,7 +138,7 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                             print(datetime.now())
                             time.sleep(random.choice(range(0, 3)))
                             if BOOL_COMMENT:
-                                comment = driver.find_element_by_xpath(
+                                comment = driver.find_element("xpath", 
                                     "/html/body/div[5]/div[2]/div/article/div[3]/section[3]/div/form/textarea")
                                 comment.click()
 
@@ -154,14 +147,14 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                                     if already or not skip:
                                         if already:
                                             already = False
-                                        elem_text = driver.find_element_by_xpath(
+                                        elem_text = driver.find_element("xpath", 
                                             "/html/body/div[5]/div[2]/div/article/div[3]/section[3]/div/form/textarea")
                                         text = random.choice(emojis)
                                         driver.execute_script(JS_ADD_TEXT_TO_INPUT, elem_text, text)
                                         elem_text.send_keys(" ")
                                         elem_text.send_keys(Keys.BACKSPACE)
 
-                                        post = driver.find_element_by_xpath(
+                                        post = driver.find_element("xpath", 
                                             "/html/body/div[5]/div[2]/div/article/div[3]/section[3]/div/form/button")
                                         post.click()
                                         comments += 1
@@ -178,32 +171,34 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                                 liked = 0
                                 break
                     try:
-                        #next = driver.find_element_by_xpath("/html/body/div[6]/div[1]/div/div/a[2]")
+                        #next = driver.find_element("xpath", "/html/body/div[6]/div[1]/div/div/a[2]")
                         print("NEXT")
-                        next = driver.find_element_by_xpath("/html/body/div[1]/div/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button")
+                        next = driver.find_element("xpath", "/html/body/div[2]/div/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button")
                         next.click()
                         time.sleep(2)
                     except Exception as e:
                         print(2)
                         print(e)
                 except BaseException as e:
-                    try:
-                        close = driver.find_element_by_xpath("/html/body/div[1]/div/div/div/div[2]/div/div/div[1]/div/div[2]/div/div/svg")
-                    except:
-                        close = driver.find_element_by_xpath("/html/body/div[1]/div/div/div/div[2]/div/div/div[1]/div/div[2]/div/div")
-                    close.click()
+                    next = driver.find_element("xpath",
+                                               "/html/body/div[1]/div/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button")
+                    next.click()
                     time.sleep(2)
-                    scroll = (ind / 9) * 2000
-                    driver.execute_script("window.scrollTo(0, {})".format(scroll))
-                    time.sleep(2)
-                    try:
-                        post = driver.find_element_by_xpath(
-                            '/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div')
-                        time.sleep(2)
-                        post.click()
-                    except Exception as e:
-                        print(3)
-                        print(e)
+                    # print("CLOSE")
+                    # close = driver.find_element("xpath", "/html/body/div[1]/div/div/div/div[2]/div/div/div[1]/div/div[2]/div/div")
+                    # close.click()
+                    # time.sleep(2)
+                    # scroll = (ind / 9) * 200
+                    # driver.execute_script("window.scrollTo(0, {})".format(scroll))
+                    # time.sleep(2)
+                    # try:
+                    #     post = driver.find_element("xpath",
+                    #         '/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div')
+                    #     time.sleep(2)
+                    #     post.click()
+                    # except Exception as e:
+                    #     print(3)
+                    #     print(e)
                 if likes > maxlikes:
                     break
             if likes > maxlikes:
@@ -267,7 +262,7 @@ def main(usuario, pwd, tags):
     if BOOL_COMMENT:
         ran = range(490, 590)
     else:
-        ran = range(350, 399)
+        ran = range(450, 499)
 
     filename = "IG"
 
@@ -318,13 +313,12 @@ if __name__ == "__main__":
     ]
 
     tags = [
-        "hardenduro", "endurospain", "jarvisbasics", "thisisenduro", "enduro", "enduropro", "endurofun",
-        "endurox", "enduroextremo", "malaga", "enduroextreme", "endurocross",
-        "enduroday", "offroad", "endurolove", "endurorider", "motoenduro", "enduromoto",
-        "extremeenduro", "endurolife", "endurobike", "endurobikes", "endurohard", "enduroadventure",
-        "endurolifestyle", "endurobikes", "endurotraining", "enduroracing",
-        "endurotrails", "endurodelverano", "endurotrail", "endurotrails", "endurohard",
-        "2t", "2tiempos", "2stroke", "ktmenduro", "ktmexc", "ktm300exctpi", "ktm300tpi", "ktm300", "goprohero",
+        "hardenduro", "endurospain", "enduro", "enduropro", "endurofun",
+        "endurox", "malaga", "endurocross",
+        "offroad", "endurolove", "endurorider", "motoenduro", "enduromoto",
+        "endurolife", "endurobike", "enduroadventure",
+        "endurolifestyle", "endurotraining", "endurodelverano", "endurotrail",
+        "2t", "2tiempos", "2stroke", "ktmenduro", "ktmexc", "ktm300tpi", "ktm300", "goprohero",
         "motocross", "motocrosslife", "motocrosslove", "motocrossrider", "motocrossaction", "motocrossgirl",
         "dirtbike", "dirtbikes", "dirtbikeporn", "dirtbikegirl", "dirtbikesarefun", "dirtbikesarecool",
         "endureros", "enduroespaña", "endurospain", "endurotraining", "endurofim",
