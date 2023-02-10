@@ -22,12 +22,12 @@ def sel_bot(usuario, pwd, tag, maxlikes):
         likes = 0
         driver.get("http://www.instagram.com")
 
-        time.sleep(3)
+        time.sleep(5)
         cookies = driver.find_element("xpath", "/html/body/div[2]/div/div/div/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/button[1]")
         cookies.click()
         user = driver.find_element("name", "username")
         pasw = driver.find_element("name", "password")
-        time.sleep(1)
+        time.sleep(3)
         button = driver.find_element("xpath", "/html/body/div[2]/div/div/div/div[1]/div/div/div/div[1]/section/main/article/div[2]/div[1]/div[2]/form/div/div[3]/button")
 
         time.sleep(3)
@@ -97,10 +97,10 @@ def sel_bot(usuario, pwd, tag, maxlikes):
                     print("NAME")
                     try:
                         name = driver.find_element("xpath", 
-                            '/html/body/div[2]/div/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[2]/div[1]/ul/div/li/div/div/div[2]/h2/div/div/a')
+                            '/html/body/div[2]/div/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[1]/div/header/div[2]/div[1]/div[1]/div/div/div/div/span/a')
                     except:
                         name = driver.find_element("xpath", 
-                            '/html/body/div[1]/div/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[2]/div[1]/ul/div/li/div/div/div[2]/h2/div/span/a')
+                            '/html/body/div[2]/div/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[2]/div[1]/ul/div/li/div/div/div[2]/h2/div/div/span/a')
 
                     if name.text != usuario:
                         found = False
